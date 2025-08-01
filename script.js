@@ -1,7 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
 import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
 
-// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyByA7u_WW_9I9bPJqo3H2CAzSLhlR6wfZs",
   authDomain: "fcemss-vs.firebaseapp.com",
@@ -11,11 +10,9 @@ const firebaseConfig = {
   appId: "1:544176890357:web:a7872edda2ef70884880bc"
 };
 
-// Cloudinary info
 const cloudName = 'dh1l6qygz';
-const unsignedUploadPreset = 'FCEMSSVS'; // Set your actual unsigned preset here
+const unsignedUploadPreset = 'FCEMSSVS';
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const imagesRef = ref(database, 'gallery-images');
@@ -26,7 +23,6 @@ const addImageBtn = document.getElementById('add-image-btn');
 const DAILY_LIMIT = 60;
 const LOCAL_STORAGE_KEY = "dailyUploadData";
 
-// Load existing Firebase images
 onChildAdded(imagesRef, (snapshot) => {
   const imageData = snapshot.val();
   if (imageData && imageData.url) {
@@ -35,7 +31,6 @@ onChildAdded(imagesRef, (snapshot) => {
   }
 });
 
-// Preload local images img1.jpg - img65.jpg
 function preloadLocalImages() {
   for (let i = 1; i <= 65; i++) {
     const src = `images/img${i}.jpg`;
@@ -45,7 +40,6 @@ function preloadLocalImages() {
 }
 preloadLocalImages();
 
-// Local state for uploads per day
 function getDailyUploadData() {
   const dataRaw = localStorage.getItem(LOCAL_STORAGE_KEY);
   if (!dataRaw) return { date: null, count: 0 };
@@ -75,7 +69,6 @@ function disableUploadButton(message) {
   addImageBtn.title = message;
 }
 
-// Check limit on page load
 function checkUploadLimit() {
   const dailyData = getDailyUploadData();
   if (isToday(dailyData.date)) {
@@ -84,17 +77,13 @@ function checkUploadLimit() {
       return true;
     }
   } else {
-    // Reset if old date
     saveDailyUploadData(new Date().toISOString(), 0);
   }
   return false;
 }
 
-if (checkUploadLimit()) {
-  // Limit reached, disable button now
-}
+checkUploadLimit();
 
-// Hidden file input for uploads
 const fileInput = document.createElement('input');
 fileInput.type = 'file';
 fileInput.accept = 'image/*';
@@ -146,13 +135,10 @@ fileInput.addEventListener('change', async (event) => {
       dailyData.count += 1;
       saveDailyUploadData(dailyData.date, dailyData.count);
 
-      // Calculate caption index: 65 (local images) + current daily upload count
       const newIndex = 65 + dailyData.count;
-      // Save with index so you can label later if needed
       await push(imagesRef, { url: data.secure_url, uploadedAt: Date.now(), index: newIndex });
-      
-      // If limit reached now, disable button immediately
-      if(dailyData.count >= DAILY_LIMIT) {
+
+      if (dailyData.count >= DAILY_LIMIT) {
         disableUploadButton("Daily upload limit reached. Try again tomorrow.");
       }
     } else {
@@ -171,13 +157,11 @@ fileInput.addEventListener('change', async (event) => {
   }
 });
 
-// Create gallery image block
 function createImageBlock(src, caption) {
   const block = document.createElement('div');
   block.className = 'image-block';
   block.innerHTML = `<img src="${src}" alt="${caption}" loading="lazy"><p>${caption}</p>`;
 
-  // Modal image display
   const imageModal = document.getElementById('image-modal');
   const modalImage = document.getElementById('modal-img');
   block.querySelector('img').addEventListener('click', () => {
@@ -191,7 +175,6 @@ function createImageBlock(src, caption) {
   return block;
 }
 
-// Modal close
 const imageModal = document.getElementById('image-modal');
 const modalCloseBtn = document.getElementById('modal-close');
 modalCloseBtn.addEventListener('click', closeModal);
@@ -211,7 +194,6 @@ function closeModal() {
   addImageBtn.focus();
 }
 
-// Show More / Show Less toggle for About section
 function toggleContent(contentId, button) {
   const content = document.getElementById(contentId);
   const isCollapsed = content.classList.contains('collapsed');
