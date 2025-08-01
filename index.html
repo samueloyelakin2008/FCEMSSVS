@@ -13,74 +13,99 @@
   />
 
   <link rel="stylesheet" href="style.css" />
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js" defer></script>
+
+  <script src="script.js" type="module" defer></script>
 </head>
 <body>
+  <header>
+    <div class="background-slider">
+      <div class="slide"></div>
+      <div class="slide"></div>
+      <div class="slide"></div>
+      <div class="slide"></div>
+      <div class="slide"></div>
+    </div>
+    <div class="header-overlay"></div>
 
-<header>
-  <div class="background-slider">
-    <div class="slide"></div>
-    <div class="slide"></div>
-    <div class="slide"></div>
-    <div class="slide"></div>
-    <div class="slide"></div>
-  </div>
-  <div class="header-overlay"></div>
+    <div class="header-content">
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="services.html">Galleries</a></li>
+          <li><a href="contact.html">Contacts</a></li>
+        </ul>
+      </nav>
+      <h1>FCEMSS VALEDICTORY SERVICE 2024/2025</h1>
+      <h2>Legends of 2025 Excellence Redefined</h2>
+    </div>
+  </header>
 
-  <div class="header-content">
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="#about">About Us</a></li>
-        <li><a href="services.html">Galleries</a></li>
-        <li><a href="contact.html">Contacts</a></li>
-      </ul>
-    </nav>
-    <h1>FCEMSS VALEDICTORY SERVICE 2024/2025</h1>
-    <h2>Legends of 2025 Excellence Redefined</h2>
-  </div>
-</header>
-
-<main>
-  <section id="about">
-    <div class="container">
-      <h2>FCEMSS Valedictory Service 2024/2025</h2>
-      <div class="content-wrapper collapsed" id="about-content">
-        <div class="about-content">
-          <div class="about-text">
-            <p><strong>The Federal College of Education Model Secondary School (FCEMSS)</strong> Valedictory Service for the 2024/2025 academic session is a heartfelt celebration dedicated to our graduating students. This memorable occasion marks the culmination of years of academic pursuit, growth, and shared experiences.</p>
-            <p>The event brings together students, staff, and parents in a moment of reflection and gratitude, featuring inspiring speeches, special presentations, awards, and thanksgiving. It is both a farewell and a celebration of new beginnings as our graduates prepare for the next chapter of their journey.</p>
-            <p>Our graduating class has demonstrated exceptional dedication, resilience, and academic excellence throughout their time at FCEMSS. From their first day as eager students to their final moments as accomplished young scholars, they have embodied the spirit of excellence that defines our institution.</p>
-            <p>The valedictory service includes recognition ceremonies, cultural presentations, and memorable speeches from distinguished guests, faculty members, and student representatives. This celebration honors not just academic achievements, but also character development, leadership qualities, and the lasting friendships formed during their educational journey.</p>
-          </div>
-          <div class="about-image">
-            <img src="images/img5.jpg" alt="FCEMSS Graduates" />
+  <main>
+    <section id="about">
+      <div class="container">
+        <h2>FCEMSS Valedictory Service 2024/2025</h2>
+        <div class="content-wrapper collapsed" id="about-content">
+          <div class="about-content">
+            <div class="about-text">
+              <p>
+                <strong>The Federal College of Education Model Secondary School (FCEMSS)</strong> Valedictory Service for the 2024/2025 academic session is a heartfelt celebration dedicated to our graduating students. This memorable occasion marks the culmination of years of academic pursuit, growth, and shared experiences.
+              </p>
+              <p>
+                The event brings together students, staff, and parents in a moment of reflection and gratitude, featuring inspiring speeches, special presentations, awards, and thanksgiving. It is both a farewell and a celebration of new beginnings as our graduates prepare for the next chapter of their journey.
+              </p>
+              <p>
+                Our graduating class has demonstrated exceptional dedication, resilience, and academic excellence throughout their time at FCEMSS. From their first day as eager students to their final moments as accomplished young scholars, they have embodied the spirit of excellence that defines our institution.
+              </p>
+              <p>
+                The valedictory service includes recognition ceremonies, cultural presentations, and memorable speeches from distinguished guests, faculty members, and student representatives. This celebration honors not just academic achievements, but also character development, leadership qualities, and the lasting friendships formed during their educational journey.
+              </p>
+            </div>
+            <div class="about-image">
+              <img src="images/img5.jpg" alt="FCEMSS Graduates" />
+            </div>
           </div>
         </div>
+        <button class="toggle-btn" onclick="toggleContent('about-content', this)">Show More</button>
       </div>
-      <button class="toggle-btn" onclick="toggleContent('about-content', this)">Show More</button>
-    </div>
-  </section>
+    </section>
 
-  <section>
-    <div class="container">
-      <h2>Gallery:
-        <h3 style="font-family:'Dancing Script', cursive; text-align:center; font-size:20px; margin-top:10px;">Excellence Redefined</h3>
-      </h2>
-    </div>
-    <div class="image-container" aria-live="polite" aria-label="Image gallery">
-      <div id="add-image-btn" tabindex="0" role="button" aria-label="Add Photo to Gallery" title="Click or press enter to upload a photo">
-        <span class="plus-icon">+</span>
-        <p>Add Photo</p>
+    <section>
+      <div class="container">
+        <h2>Gallery:</h2>
+        <h3 style="font-family:'Dancing Script', cursive; text-align:center; font-size:20px; margin-top:10px;">
+          Excellence Redefined
+        </h3>
       </div>
+      <div class="image-container" aria-live="polite" aria-label="Image gallery">
+        <div
+          id="add-image-btn"
+          tabindex="0"
+          role="button"
+          aria-label="Add Photo to Gallery"
+          title="Click or press enter to upload a photo"
+        >
+          <span class="plus-icon">+</span>
+          <p>Add Photo/video</p>
+          <p>Max img-size:5MB</p>
+          <p>Max video-sze:50MB</p>
+        </div>
+      </div>
+    </section>
+
+    <div
+      id="image-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Full screen image view"
+      tabindex="-1"
+    >
+      <span id="modal-close" class="close-btn" title="Close modal" role="button" tabindex="0">&times;</span>
+      <img id="modal-img" alt="Full screen image" />
     </div>
-  </section>
-
-  <div id="image-modal" role="dialog" aria-modal="true" aria-label="Full screen image view" tabindex="-1">
-    <span id="modal-close" class="close-btn" title="Close modal" role="button" tabindex="0">&times;</span>
-    <img id="modal-img" alt="Full screen image" />
-  </div>
-</main>
-
-<script type="module" src="script.js"></script>
+  </main>
 </body>
 </html>
